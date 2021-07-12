@@ -1,0 +1,339 @@
+.messageBox {
+    z-index: 2;
+    box-shadow: rgba(30, 30, 30, 0.75) 0px 0px 20px -2px;
+    width: 40vw;
+    height: 100vh;
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    background-color: #1B1A1A;
+  }
+
+  .messageArea {
+    overflow: auto;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 1.25rem;
+    padding-bottom: 0.25rem;
+    height: 90vh;
+
+  }
+
+  #inputPlace {
+    font-size: 15px;
+
+    height: auto;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: normal;
+    /* background-color: #E5E5f1; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 1rem;
+
+  }
+
+  #typemsg {
+    border-radius: 0.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: black;
+    height: auto;
+    width: 100%;
+    margin-right: 1rem;
+  }
+
+  #typemsg::placeholder {
+    color: darkgray;
+  }
+
+  #typemsg:focus {
+    outline: none;
+  }
+
+  #message {
+    border-radius: 9999px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+  }
+
+  #message:focus {
+    outline: none;
+  }
+
+  #message:hover {
+    background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+
+  }
+
+  .page {
+    display: flex;
+    flex-direction: row;
+  }
+
+  video {
+
+
+    position: relative;
+    vertical-align: middle;
+    align-self: center;
+    border-radius: 10px;
+    overflow: hidden;
+    display: inline-block;
+    box-shadow: 0px 12px 22px rgba(0, 0, 0, 0.4);
+    background: #1B1A1A;
+    animation: show 0.4s ease;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    /* padding-left: 10px; */
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 500px;
+    height: 375px;
+    margin-top: 50px;
+    -moz-transform: rotateY(180deg);
+
+
+  }
+  
+
+  .close1 {
+    background-color: whitesmoke;
+    padding: 1rem 0.75rem;
+  }
+
+  #joinRoom {
+    width: 500px;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    background-color: #6264a7;
+    color: white;
+    border-width: 1px;
+    border-color: transparent;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    margin-left: 50px;
+    margin-top: 20;
+
+
+  }
+  .bottomIcons {
+    display: flex;
+  width: 100%;
+  justify-content: left;
+  position: absolute;
+  top: 385;
+  z-index: 0;
+  padding-left: 200px;
+  }
+
+  .svgs {
+    margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  height: 35px;
+  width: 35px;
+  z-index: 1;
+  fill: white;
+  background-color: #1B1A1A;
+  transition: all 0.2s ease;
+  box-shadow: rgba(30, 30, 30, 0.75) 0px 0px 20px -2px;
+
+  }
+
+  .svgs:hover {
+    background-color: rgb(40, 40, 40);
+  }
+
+  
+  #room_id {
+    display: flex;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    background-color: rgba(107, 114, 128, 0.75);
+
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+
+
+  }
+
+
+
+
+  .room_id3 {
+
+    border-radius: 0.5rem;
+
+    width: 40%;
+    --tw-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  .room_id4 {
+    background-color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1rem;
+  }
+
+  .room_id5 {
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    color: rgba(17, 24, 39, 1);
+  }
+
+  #copyRoomId {
+
+    color: rgba(17, 24, 39, 1);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .close1 {
+    background-color: whitesmoke;
+    padding: 1rem 0.75rem;
+  }
+
+  #close_room {
+    width: 100%;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    background-color: crimson;
+    color: white;
+    border-width: 1px;
+    border-color: transparent;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+
+
+  }
+
+  #close_room:hover {
+    background-color: red;
+  }
+
+  #close_room:focus {
+    outline: none;
+    background-color: red;
+    box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    --tw-ring-offset-width: 2px;
+    box-shadow: 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color), var(--tw-ring-shadow);
+    --tw-ring-color: rgba(239, 68, 68, var(--tw-ring-opacity));
+  }
+  .receive{
+    display: flex;
+    justify-content: start;
+    padding-top: 0.5rem;
+    padding-right: 2.5rem;
+    padding-left: 0.5rem;
+  }
+  .sent{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+    padding-left: 2.5rem;
+    padding-right: 0.5rem;
+  }
+  .receive1{
+    background-color: whitesmoke;
+    height: auto;
+    border-radius: 0.125rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    align-items: flex-end;
+    display: flex;
+    overflow: hidden;
+    width: 20rem;
+    position:relative;
+
+  }
+  .sent1{
+    background-color: #6264a7;
+    height: auto;
+    border-radius: 0.125rem;
+    padding: 0.25rem;
+  
+    align-items: flex-end;
+    display: flex;
+    overflow: hidden;
+    width: 20rem;
+    font-size: 13px;
+    word-break: break-all;
+    justify-content: end;
+    color: whitesmoke;
+    position: relative;
+
+  }
+  .receiveMessage{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .name{
+    padding-left: 0.25rem;
+    font-weight: 600;
+    font-size: 14px;
+    color: #6264a7;
+  }
+  .message{
+    color: black;
+    padding-left: 0.25rem;
+    text-overflow: clip;
+    width: auto;
+    font-size: 13px;
+    word-break: break-all;
+    padding-right: 20px;
+  }
+  .time{
+    color: gray;
+    padding-left: 0.25rem;
+    position: absolute;
+    right:2px;
+    font-size: 12px;
+  }
+  .senttime{
+    color:lightgray;
+  padding-left: 0.25rem;
+  font-size: 12px;
+  /* justify-content: flex-end; */
+  position: absolute;
+  right: 2px;
+  }
+  

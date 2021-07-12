@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="home_styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+    
+    <script src="../socket.io/socket.io.js" defer></script>
+    <script defer src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+        integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knuth-shuffle/1.0.8/index.min.js"
+        integrity="sha512-qATy7psZbGGnnfxVbxzRNBKp72F0+itAkN/pvzv0neBXJgJMvGWxG36qXK1PHWxfHTRbQmf97Fmwm4nIgn2iLw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/human-readable-ids@1.0.4/assets/animals.js"></script>
+    <script src="https://unpkg.com/human-readable-ids@1.0.4/assets/adjectives.js"></script>
+    <script src="https://unpkg.com/human-readable-ids@1.0.4/index.js"></script>
+
+    <script defer src="home_script.js" defer></script>
+
+    <title>Create/Join Room</title>
+</head>
+
+<body style="background-color: #11100F;">
+
+    <div class="div2">
+
+
+        <form>
+            <div class="div4">
+                <input id="name" placeholder="Name" type="text" />
+            </div>
+            <div class="div4">
+                <input id="callInput" placeholder="Enter Room Id" type="text" />
+            </div>
+            <button id="answerButton" class="div3" type="button" onclick="JoinRoom(event);">
+                Join-Room
+            </button>
+            <button id="createRoom" class="div3" type="button" onclick="CreateRoom(event);">
+                Create-Room
+            </button>
+            <button id="createRoom" class="div3" type="button"
+                style="margin-top: 0px;display: flex;flex-direction: row; justify-content: center;"
+                onclick="CreatePodcast(event);">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px"
+                    viewBox="0 0 24 24" width="24px" fill="whitesmoke" style="margin-right: 10px;">
+                    <g>
+                        <path d="M0,0h24v24H0V0z" fill="none" />
+                    </g>
+                    <g>
+                        <path
+                            d="M14,12c0,0.74-0.4,1.38-1,1.72V22h-2v-8.28c-0.6-0.35-1-0.98-1-1.72c0-1.1,0.9-2,2-2S14,10.9,14,12z M12,6 c-3.31,0-6,2.69-6,6c0,1.74,0.75,3.31,1.94,4.4l1.42-1.42C8.53,14.25,8,13.19,8,12c0-2.21,1.79-4,4-4s4,1.79,4,4 c0,1.19-0.53,2.25-1.36,2.98l1.42,1.42C17.25,15.31,18,13.74,18,12C18,8.69,15.31,6,12,6z M12,2C6.48,2,2,6.48,2,12 c0,2.85,1.2,5.41,3.11,7.24l1.42-1.42C4.98,16.36,4,14.29,4,12c0-4.41,3.59-8,8-8s8,3.59,8,8c0,2.29-0.98,4.36-2.53,5.82l1.42,1.42 C20.8,17.41,22,14.85,22,12C22,6.48,17.52,2,12,2z" />
+                    </g>
+                </svg>
+                Create-Podcast
+            </button>
+
+        </form>
+    </div>
+    <a href="/sessionLogout">
+        <svg class="svgs" style="position: absolute;right: 5px;top: 5px;background-color: #11100f;"
+            xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24"
+            width="24px" fill="#FFFFFF">
+            <g>
+                <path d="M0,0h24v24H0V0z" fill="none" />
+            </g>
+            <g>
+                <path
+                    d="M17,8l-1.41,1.41L17.17,11H9v2h8.17l-1.58,1.58L17,16l4-4L17,8z M5,5h7V3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h7v-2H5V5z" />
+            </g>
+        </svg>
+    </a>
+
+</body>
+<script>
+    const ROOM_ID = "<%= roomId %>"
+</script>
+
+</html>

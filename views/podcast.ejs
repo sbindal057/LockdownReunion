@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../room_styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+ 
+  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+
+  <title>Podcast</title>
+
+  <script>
+    const ROOM_ID = "<%= roomId %>"
+
+  </script>
+  
+    
+</head>
+
+<body style="background-color: #11100F;">
+
+    
+  <button id="chat">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" class=" chatButton" viewBox="0 0 24 24"
+      fill="#ffffff">
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path
+        d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+    </svg>
+  </button>
+  <div id="video-grid"></div>
+  <div id="chatbox">
+    <div class="messageBox">
+
+      <div class="messageArea" id="journal-scroll">
+        <div class=" " id="chatmsg">
+        </div>
+      </div>
+      <div id="inputPlace">
+        <input type="text" placeholder="Type a message..." id="typemsg">
+
+
+        <div>
+          <button id="message">
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 495.003 495.003"
+              style="enable-background:new 0 0 495.003 495.003;" xml:space="preserve">
+              <g id="XMLID_51_">
+                <path id="XMLID_53_" style="fill: #6264a7" d="M164.711,456.687c0,2.966,1.647,5.686,4.266,7.072c2.617,1.385,5.799,1.207,8.245-0.468l55.09-37.616
+		l-67.6-32.22V456.687z" />
+                <path id="XMLID_52_" style="fill: #6264a7" d="M492.431,32.443c-1.513-1.395-3.466-2.125-5.44-2.125c-1.19,0-2.377,0.264-3.5,0.816L7.905,264.422
+		c-4.861,2.389-7.937,7.353-7.904,12.783c0.033,5.423,3.161,10.353,8.057,12.689l125.342,59.724l250.62-205.99L164.455,364.414
+		l156.145,74.4c1.918,0.919,4.012,1.376,6.084,1.376c1.768,0,3.519-0.322,5.186-0.977c3.637-1.438,6.527-4.318,7.97-7.956
+		L494.436,41.257C495.66,38.188,494.862,34.679,492.431,32.443z" />
+              </g>
+            </svg>
+
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+
+
+    <div class="bottomIcons" id = "xx">
+
+
+      <button id="mute">
+  
+        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" class="svgs" viewBox="0 0 24 24"
+          style="enable-background:new 0 0 458.571 458.571;">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
+        </svg>
+      </button>
+  
+      <button id="video">
+  
+        <svg viewBox="0 0 24 24" id="cam" class="svgs" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg">
+          <title>prime</title>
+          <path id="31625ee0-a24e-42ee-acc5-7a19af8dfb28" data-name="video"
+            d="M20.27,6.38L16,11V8a2,2,0,0,0-2-2H4A2,2,0,0,0,2,8V18a2,2,0,0,0,2,2H14a2,2,0,0,0,2-2V15.5l4.29,4.29A1,1,0,0,0,22,19.09v-12A1,1,0,0,0,20.27,6.38Z" />
+        </svg>
+      </button>
+  
+      <button id="screenShare" style="z-index:1;">
+        <svg xmlns="http://www.w3.org/2000/svg" id="ss_icon" class="svgs" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zm-7-3.53v-2.19c-2.78 0-4.61.85-6 2.72.56-2.67 2.11-5.33 6-5.87V7l4 3.73-4 3.74z" />
+        </svg>
+      </button>
+      <button id="show_room" style="z-index:1;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svgs" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+        </svg>
+      </button>
+      <button id="hhh">
+  
+        <svg class="hangup" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.1519 16.2663L16.6145 13.848C16.4799 13.8132 16.3153 13.7736 16.1266 13.7339C15.5657 13.6158 14.8074 13.5 13.9999 13.5C13.1924 13.5 12.434 13.6158 11.8731 13.7339C11.6845 13.7736 11.5199 13.8132 11.3853 13.848L10.8479 16.2663C10.5604 17.5597 9.51656 18.5492 8.20957 18.767L6.10159 19.1184C4.45641 19.3926 2.87072 18.3769 2.43183 16.7678L2.22578 16.0124C1.72818 14.188 2.31138 12.0975 4.16042 11.1699C6.18942 10.1519 9.48668 8.99828 13.9999 8.99829C18.5131 8.9983 21.8103 10.152 23.8393 11.1699C25.6883 12.0975 26.2715 14.188 25.774 16.0123L25.5679 16.7678C25.129 18.3769 23.5433 19.3926 21.8981 19.1184L19.7902 18.767C18.4832 18.5492 17.4393 17.5597 17.1519 16.2663Z"
+            fill="#ffffff" />
+        </svg>
+      </button>
+  
+    </div>
+    </div>
+  
+    <div id="room_id" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display:none">
+  
+  
+      <div class="room_id3">
+        <div class="room_id4">
+  
+          <div class="room-id5">
+            <h3>
+              ROOM ID
+            </h3>
+            <div style="margin-top: 0.5rem; display:flex;">
+              <p id="copyRoomId">
+                <%= roomId %>
+              </p>
+              <button style="margin-left: 10px;" onclick=" CopyToClipboard();return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 0 24 24" width="17px" fill="#f0da9b">
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+  
+        </div>
+        <div class="close1">
+          <button id="close_room" type="button">
+            Close
+          </button>
+        </div>
+      </div>
+  
+    </div>
+  
+</body>
+
+<script src="../podcast.js" defer></script>
+
+</html>
