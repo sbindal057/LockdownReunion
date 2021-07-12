@@ -15,21 +15,11 @@ const myPeer = new Peer(
 
 const myVideo = document.createElement('video')
 
-
-
-const mic = document.getElementById('mute')
-const endCall = document.getElementById('hhh')
-const camera = document.getElementById('video')
 let localStream = null;
 const peers = {}
 const screenpeers = {}
-
-
 myVideo.muted = true
-if (!navigator.mediaDevices) {
-  console.log("Document not secure. Unable to capture WebCam.");
-}
-else {
+
   navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
@@ -43,7 +33,7 @@ else {
     localStream = stream
     myPeer.on('call', call => {
 
-      console.log(myPeer._id)
+
       call.answer(stream)
       const video = document.createElement('video')
 
@@ -55,6 +45,7 @@ else {
         video.setAttribute("id", call.peer)
       }
       else {
+        //for screen sharing
         video.setAttribute("id", "sc" + call.peer)
         video.style.transform = "none"
       }
@@ -63,13 +54,13 @@ else {
         addVideoStream(video, userVideoStream, "")
 
       })
-      console.log(myPeer._id)
-    })
 
+    })
+    //for name
     myPeer.on('connection', function (conn) {
 
       conn.on('open', function () {
-        console.log('connected!');
+
         conn.on('data', function (data) {
           (document.getElementById(conn.peer).parentNode).childNodes[1].innerHTML = data
         });
@@ -106,11 +97,9 @@ else {
         })
         screenpeers[userId] = call
       }
+      //name
       var conn = myPeer.connect(userId, localStorage.getItem("names"));
       conn.on('open', function () {
-        // Receive name
-        console.log("connected")
-
 
         // Send name
         conn.send(localStorage.getItem("names"));
@@ -121,7 +110,9 @@ else {
         (document.getElementById(conn.peer).parentNode).childNodes[1].innerHTML = data
       });
     })
-  })
+  },
+  err => alert("Looks like your video could not be turned on. Please check if its being used anywhere other than this browser ")
+  )
 
 
   socket.on('user-disconnected', userId => {
@@ -134,7 +125,7 @@ else {
 
   })
   socket.on('screen-disconnected', userId => {
-    if(screenpeers[userId])screenpeers[userId].close()
+    if (screenpeers[userId]) screenpeers[userId].close()
 
     const useridvideo = document.getElementById("sc" + userId);
     if (useridvideo != null) {
@@ -156,7 +147,7 @@ else {
 
 
       document.getElementById("large_video").style.display = "block";
-      console.log("clicked")
+      
       var cln = myVideo.cloneNode(true);
 
       cln.style.width = "auto";
@@ -191,7 +182,7 @@ else {
 
     videoWrapper.append(video)
     const nameDiv = document.createElement("div")
-    // console.log(NAME)
+
     nameDiv.className = "videoName"
     videoWrapper.append(nameDiv)
     nameDiv.innerHTML = NAME
@@ -199,7 +190,7 @@ else {
     video.addEventListener("click", () => {
 
       document.getElementById("large_video").style.display = "block";
-      //console.log("clicked")
+
       var cln = video.cloneNode(true);
 
 
@@ -226,7 +217,9 @@ else {
     Dish()
 
   }
-}
+
+
+//screenshare 
 const ScreenShare = document.getElementById("screenShare")
 const ss_icon = document.getElementById("ss_icon")
 let screenStream = null;
@@ -316,8 +309,7 @@ function printPrevMessage(item) {
   let MSSG = item['mssg']
   let TIME = item['time']
   let ID = item['id']
-  console.log(localStorage.getItem('names').length)
-  console.log(NAME.length)
+
   if (" " + localStorage.getItem('names') == NAME) {
 
     var printtext = document.getElementById('chatmsg');
@@ -357,11 +349,11 @@ socket.on(ROOM_ID, text => {
     box.scrollTop = box.scrollHeight;
 
     if (ChatBox.style.display == "none") {
-      var printte = document.getElementById("body") ;
+      var printte = document.getElementById("body");
 
-    var printno = '<div class="receive" id = "messagePopup"style = "position:absolute;right:calc(50% - 10rem);">' + '<div class="receive1" >' + '<div class="receiveMessage">' + '<p class="name" >' + text.NAME + '</p>' + '<p class="message">' + text.messagE + '</p>' + '</div>' + '<span class="time">' + currentdate.getHours() + ':' + currentdate.getMinutes() + '</span>' + '</div>' + '</div>';
-    printte.insertAdjacentHTML('beforeend', printno);
-    setTimeout(function(){ document.getElementById("messagePopup").remove() }, 15000);
+      var printno = '<div class="receive" id = "messagePopup"style = "position:absolute;right:calc(50% - 10rem);">' + '<div class="receive1" >' + '<div class="receiveMessage">' + '<p class="name" >' + text.NAME + '</p>' + '<p class="message">' + text.messagE + '</p>' + '</div>' + '<span class="time">' + currentdate.getHours() + ':' + currentdate.getMinutes() + '</span>' + '</div>' + '</div>';
+      printte.insertAdjacentHTML('beforeend', printno);
+      setTimeout(function () { document.getElementById("messagePopup").remove() }, 3000);
 
     }
   }
@@ -416,10 +408,14 @@ document.getElementById('message').onclick = () => {
 
 ///end messaging
 
-///cam mic
+///cam mic handraise share endcall
+
+const mic = document.getElementById('mute')
+const endCall = document.getElementById('EndCall')
+const camera = document.getElementById('video')
 
 camera.onclick = function () {
-  //console.log("cam")
+
   const camera_svg = document.getElementById("cam")
   const t = myVideo.srcObject.getTracks()[1]
   t.enabled = !t.enabled
@@ -434,7 +430,7 @@ camera.onclick = function () {
 
 }
 mic.onclick = function () {
-  // console.log('mic of');
+
   const mic_svg = document.getElementById("Layer_1")
   const t = myVideo.srcObject.getTracks()[0]
   t.enabled = !t.enabled
@@ -465,12 +461,7 @@ endCall.onclick = function () {
   localStream.getTracks()[1].stop();
   window.location.href = `/chat/${ROOM_ID}`
 }
-
-//cam mic hangup
-
-
-
-
+//share
 
 const openmodal = document.getElementById("show_room")
 const closemodal = document.getElementById("close_room")
@@ -485,6 +476,68 @@ closemodal.onclick = () => {
 
 }
 
+//hand raise
+const hand = document.getElementById("handRaise")
+const handSvg = document.getElementById("hr")
+
+hand.onclick = function () {
+
+  if (handSvg.style.fill == "rgb(255, 218, 54)") {
+
+    myVideo.style.border = "0px "
+    myVideo.style.padding = "0px "
+    handSvg.style.fill = "whitesmoke"
+    socket.emit('handRaise', {
+      mess: "off",
+      roomid: "hr" + ROOM_ID,
+      id: mypeerid
+    })
+
+  }
+  else {
+    myVideo.style.border = "3px solid #03dac6"
+    myVideo.style.padding = "3px "
+
+    handSvg.style.fill = "#ffda36"
+    socket.emit('handRaise', {
+      mess: "on",
+      roomid: "hr" + ROOM_ID,
+      id: mypeerid
+    })
+
+  }
+
+
+
+
+}
+
+socket.on("hr" + ROOM_ID, text => {
+
+  if (text.userId != mypeerid) {
+    if (text.messagE == "on") {
+
+      document.getElementById(text.userId).style.border = "3px solid #ffda36"
+      document.getElementById(text.userId).style.padding = "3px "
+
+    }
+
+    else {
+      document.getElementById(text.userId).style.border = "0px"
+      document.getElementById(text.userId).style.padding = "0px "
+
+    }
+  }
+
+})
+
+
+//cam mic hangup
+
+
+
+
+//video grid
 
 function Area(Increment, Count, Width, Height, Margin = 10) {
   let i = w = 0;
@@ -552,57 +605,3 @@ function CopyToClipboard() {
   document.execCommand("copy");
   document.body.removeChild(elem);
 }
-
-const hand = document.getElementById("handRaise")
-const handSvg = document.getElementById("hr")
-
-hand.onclick = function () {
-  console.log('clicked')
-  if (handSvg.style.fill == "rgb(255, 218, 54)") {
-    console.log('of')
-    myVideo.style.border = "0px "
-    myVideo.style.padding = "0px "
-    handSvg.style.fill = "whitesmoke"
-    socket.emit('handRaise', {
-      mess: "off",
-      roomid: "hr" + ROOM_ID,
-      id: mypeerid
-    })
-
-  }
-  else {
-    myVideo.style.border = "3px solid #03dac6"
-    myVideo.style.padding = "3px "
-    console.log('on')
-    handSvg.style.fill = "#ffda36"
-    socket.emit('handRaise', {
-      mess: "on",
-      roomid: "hr" + ROOM_ID,
-      id: mypeerid
-    })
-
-  }
-
-
-
-
-}
-
-socket.on("hr" + ROOM_ID, text => {
-  console.log(text)
-  if (text.userId != mypeerid) {
-    if (text.messagE == "on") {
-      console.log("on")
-      document.getElementById(text.userId).style.border = "3px solid #ffda36"
-      document.getElementById(text.userId).style.padding = "3px "
-
-    }
-
-    else {
-      document.getElementById(text.userId).style.border = "0px"
-      document.getElementById(text.userId).style.padding = "0px "
-
-    }
-  }
-
-})

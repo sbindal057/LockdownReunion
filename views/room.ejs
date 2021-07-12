@@ -8,10 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
- 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
   <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
   <script src="/socket.io/socket.io.js" defer></script>
 
@@ -24,9 +22,9 @@
 
 </head>
 
-<body id = "body"style="background-color: #11100F;">
+<body id="body" style="background-color: #11100F;">
 
-
+  <!-- open/close chatbox button -->
   <button id="chat">
 
     <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" class=" chatButton" viewBox="0 0 24 24"
@@ -36,7 +34,9 @@
         d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
     </svg>
   </button>
+  <!-- video grid -->
   <div id="video-grid"></div>
+  <!-- messaging -->
   <div id="chatbox">
     <div class="messageBox">
 
@@ -76,7 +76,7 @@
 
   <div class="bottomIcons">
 
-
+    <!-- mute -->
     <button id="mute">
 
       <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" class="svgs" viewBox="0 0 24 24"
@@ -86,7 +86,7 @@
           d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
       </svg>
     </button>
-
+    <!-- camera -->
     <button id="video">
 
       <svg viewBox="0 0 24 24" id="cam" class="svgs" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +95,7 @@
           d="M20.27,6.38L16,11V8a2,2,0,0,0-2-2H4A2,2,0,0,0,2,8V18a2,2,0,0,0,2,2H14a2,2,0,0,0,2-2V15.5l4.29,4.29A1,1,0,0,0,22,19.09v-12A1,1,0,0,0,20.27,6.38Z" />
       </svg>
     </button>
-
+    <!-- screenShare -->
     <button id="screenShare" style="z-index:1;">
       <svg xmlns="http://www.w3.org/2000/svg" id="ss_icon" class="svgs" viewBox="0 0 24 24">
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -103,13 +103,16 @@
           d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zm-7-3.53v-2.19c-2.78 0-4.61.85-6 2.72.56-2.67 2.11-5.33 6-5.87V7l4 3.73-4 3.74z" />
       </svg>
     </button>
+    <!-- hand raise  -->
     <button id="handRaise" style="z-index:1;">
-      <svg id = "hr" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"  viewBox="0 0 24 24" class = "svgs">
-        
+      <svg id="hr" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
+        class="svgs">
+
         <path
           d="M19.75,8c-0.69,0-1.25,0.56-1.25,1.25V15H18c-1.65,0-3,1.35-3,3h-1c0-2.04,1.53-3.72,3.5-3.97l0-10.78 C17.5,2.56,16.94,2,16.25,2C15.56,2,15,2.56,15,3.25V11h-1V1.25C14,0.56,13.44,0,12.75,0S11.5,0.56,11.5,1.25V11h-1V2.75 c0-0.69-0.56-1.25-1.25-1.25S8,2.06,8,2.75V12H7V5.75C7,5.06,6.44,4.5,5.75,4.5S4.5,5.06,4.5,5.75v10c0,4.56,3.69,8.25,8.25,8.25 S21,20.31,21,15.75v-6.5C21,8.56,20.44,8,19.75,8z" />
       </svg>
     </button>
+    <!-- share room id -->
     <button id="show_room" style="z-index:1;">
       <svg xmlns="http://www.w3.org/2000/svg" class="svgs" viewBox="0 0 24 24">
         <path d="M0 0h24v24H0z" fill="none" />
@@ -117,7 +120,8 @@
           d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
       </svg>
     </button>
-    <button id="hhh">
+    <!-- hangup -->
+    <button id="EndCall">
 
       <svg class="hangup" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -128,7 +132,7 @@
 
   </div>
   </div>
-
+  <!-- Room Id modal -->
   <div id="room_id" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display:none">
 
 
@@ -162,6 +166,7 @@
     </div>
 
   </div>
+  <!-- for large video -->
   <div id="large_video" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none;"></div>
 </body>
 

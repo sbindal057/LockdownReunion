@@ -83,24 +83,6 @@ app.get("/sessionLogout", (req, res) => {
 
 
 
-app.get('/endpage', (req, res) => {
-  const sessionCookie = req.cookies.session || "";
-
-  admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
-    .then(() => {
-      res.sendFile(__dirname + '/views/endpage.html');
-    })
-    .catch((error) => {
-      res.redirect("/");
-    });
-
-
-
-
-})
-// let Name = null;
 app.get('/podcast/:room', (req, res) => {
 
   rr = req.params.room;

@@ -11,10 +11,9 @@ const myPeer = new Peer(
   }
 )
 
-
-console.log(myPeer._id)
 let localStream = null;
 const peers = {}
+//to add video stream in video grid
 function addVideoStream(video, stream) {
   video.srcObject = stream
   video.addEventListener('loadedmetadata', () => {
@@ -27,6 +26,7 @@ function addVideoStream(video, stream) {
 
 
 }
+// for host of podcast
 if (sessionStorage.getItem('Podcast') == 'create') {
   const myVideo = document.createElement('video')
   myVideo.muted = true
@@ -46,13 +46,14 @@ if (sessionStorage.getItem('Podcast') == 'create') {
     localStream = stream
     socket.on('user-connected', userId => {
 
-      let userName = null;
       const call = myPeer.call(userId, stream)
       peerid.push(userId)
       peers[userId] = call
 
     })
-  })
+  },
+  err => alert("Looks like your video could not be turned on. Please check if its being used anywhere other than this browser ")
+  )
   socket.on('user-disconnected', userId => {
     if (peers[userId]) peers[userId].close()
 
@@ -63,80 +64,9 @@ if (sessionStorage.getItem('Podcast') == 'create') {
     socket.emit('join-room', ROOM_ID, id)
   })
 
-  const mic = document.getElementById('mute')
-  const endCall = document.getElementById('hhh')
-  const camera = document.getElementById('video')
-
-
-  camera.onclick = function () {
-    //console.log("cam")
-    const camera_svg = document.getElementById("cam")
-    const t = myVideo.srcObject.getTracks()[1]
-    t.enabled = !t.enabled
-    if (camera_svg.style.backgroundColor == 'crimson') {
-      camera_svg.style.backgroundColor = '#1b1a1a'
-
-
-    }
-    else {
-      camera_svg.style.backgroundColor = 'crimson'
-    }
-
-  }
-  mic.onclick = function () {
-    // console.log('mic of');
-    const mic_svg = document.getElementById("Layer_1")
-    const t = myVideo.srcObject.getTracks()[0]
-    t.enabled = !t.enabled
-    if (mic_svg.style.backgroundColor == 'crimson') {
-      mic_svg.style.backgroundColor = '#1B1A1A'
-
-
-    }
-    else {
-      mic_svg.style.backgroundColor = 'crimson'
-    }
-
-  }
-
-  endCall.onclick = function () {
-    for (let conns in myPeer.connections) {
-      myPeer.connections[conns].forEach((conn, index, array) => {
-        // console.log(`closing ${conn.connectionId} peerConnection (${index + 1}/${array.length})`, conn.peerConnection);
-        conn.peerConnection.close();
-
-        // close it using peerjs methods
-        if (conn.close)
-          conn.close();
-      });
-      socket.emit('disconnect');
-    }
-    myVideo.pause();
-    myVideo.src = "";
-    localStream.getTracks()[0].stop();
-    localStream.getTracks()[1].stop();
-    window.location.href = `/profile`
-  }
-
-
-  const openmodal = document.getElementById("show_room")
-  const closemodal = document.getElementById("close_room")
-  const room_id = document.getElementById("room_id")
-  openmodal.onclick = () => {
-    room_id.style.display = "flex";
-
-  }
-
-  closemodal.onclick = () => {
-    room_id.style.display = "none";
-
-  }
-
-
-
-
-
+  
 }
+//for viewers
 else {
 
   document.getElementById("xx").style.display = "none"
@@ -241,9 +171,10 @@ else {
 //messaging
 
 
-
+//open chatbox
 const openChatBox = document.getElementById("chat")
 const ChatBox = document.getElementById("chatbox")
+ChatBox.style.display = "none"
 openChatBox.onclick = () => {
   if (ChatBox.style.display === "none") {
     ChatBox.style.display = "block";
@@ -417,6 +348,7 @@ ScreenShare.onclick = () => {
 
 }
 
+// video-grid
 
 function Area(Increment, Count, Width, Height, Margin = 10) {
   let i = w = 0;
@@ -478,3 +410,77 @@ function CopyToClipboard() {
   document.execCommand("copy");
   document.body.removeChild(elem);
 }
+
+//mic camer share and all
+const mic = document.getElementById('mute')
+  const endCall = document.getElementById('EndCall')
+  const camera = document.getElementById('video')
+
+
+  camera.onclick = function () {
+ 
+    const camera_svg = document.getElementById("cam")
+    const t = myVideo.srcObject.getTracks()[1]
+    t.enabled = !t.enabled
+    if (camera_svg.style.backgroundColor == 'crimson') {
+      camera_svg.style.backgroundColor = '#1b1a1a'
+
+
+    }
+    else {
+      camera_svg.style.backgroundColor = 'crimson'
+    }
+
+  }
+  mic.onclick = function () {
+    
+    const mic_svg = document.getElementById("Layer_1")
+    const t = myVideo.srcObject.getTracks()[0]
+    t.enabled = !t.enabled
+    if (mic_svg.style.backgroundColor == 'crimson') {
+      mic_svg.style.backgroundColor = '#1B1A1A'
+
+
+    }
+    else {
+      mic_svg.style.backgroundColor = 'crimson'
+    }
+
+  }
+
+  endCall.onclick = function () {
+    for (let conns in myPeer.connections) {
+      myPeer.connections[conns].forEach((conn, index, array) => {
+        
+        conn.peerConnection.close();
+
+        
+        if (conn.close)
+          conn.close();
+      });
+      socket.emit('disconnect');
+    }
+    myVideo.pause();
+    myVideo.src = "";
+    localStream.getTracks()[0].stop();
+    localStream.getTracks()[1].stop();
+    window.location.href = `/profile`
+  }
+
+
+  const openmodal = document.getElementById("show_room")
+  const closemodal = document.getElementById("close_room")
+  const room_id = document.getElementById("room_id")
+  openmodal.onclick = () => {
+    room_id.style.display = "flex";
+
+  }
+
+  closemodal.onclick = () => {
+    room_id.style.display = "none";
+
+  }
+
+
+
+

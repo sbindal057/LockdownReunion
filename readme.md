@@ -1,10 +1,6 @@
 <center> 
 
-# **Teams Clone Project** <br><br> Microsoft Engage 2021
-
- 
-
-
+# **Lockdown Reunion** <br>  - Video Calling & more - <br><br> Microsoft Engage 2021
 
 </center>
 
@@ -13,13 +9,13 @@
 
 ## About
 
-All-in-one Web **App for video conferencing**, **Podcast** and **chatting**.
+All-in-one Web App for **video conferencing**, **Podcast** and **chatting**.
 Used agile methodology to execute whole project. 
 
 
 ## How to use?
 
- - Go on website https://blooming-tor-03916.herokuapp.com/ and either create your own new account by signing up or direct login with Google, GitHub or Microsoft.
+ - Go on website https://lockdown-reunion.herokuapp.com/ and either create your own new account by signing up or direct login with Google, GitHub or Microsoft.
  - After that profile page appear from where you can create a podcast or meeting room, or join a existing room. 
 
 ## Chat Room
@@ -46,14 +42,14 @@ Used agile methodology to execute whole project.
 
 ## Podcast
 
- - **Create Podcast**
+ - **Create Podcast**<br>
  By clicking on create-podcast the page will redirect to a podcast with random Id starting with podcast.
  In podcast room one can mute, turn of video, share screen
 
 
 
  
- - **Join Podcast**
+ - **Join Podcast**<br>
   To join podcast add the room id to room id input place in profile page and click join room
 	 After joining the room you can see the video or screen of the host.
 
@@ -123,7 +119,60 @@ For local development:
  5. now go to the http://localhost:3000/
 
 
- To deploy it on heroku:
+To deploy on Heroku: 
+ 
+
+ 1. Create a new app.
+ 2. Push the code using Heroku CLI or connect the Heroku app to the GitHub repository containing this code.
+ 3. To enable WebSockets, you need to enable http session affinity via  `heroku features:enable http-session-affinity -a {app-name}`
+ 4. Your web app must be up & running beautifully now.
+
+ 
+To set firebase authentication:
+
+1.  Login to https://firebase.google.com/ and go to console.
+2. Create a Web App over there and go to Authentication.
+3. Under Sign-in method enable different methods of authentication.
+4. get your firebase config file go to project settings.
+5. In general settings add your app and get the config file. 
+
+	**For oauth2.0**
+
+ 	Get your cliend ID and secret from different platform.
+ 
+ 	For Microsoft:
+ 
+
+ 	1. Go to azure portal and log-in over there.
+ 	2. Go to azure active directory and create an app.
+ 	3. Go to authentication after that add the redirect URL provided in firebase and copy the client ID and secret.
+	 
+	 <br>
+
+	For GitHub:
+
+ 	1. Go to your GitHub settings->developers settings->OAuth apps.
+	2. Create a new app and get your client ID and secret.
+
+	
+ 
+ 
+
+		
+
+		
+
+
+
+		 
+ 
+
+ 
+
+
+
+ 
+ 
  
  
 
