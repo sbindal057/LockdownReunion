@@ -143,29 +143,6 @@ myVideo.muted = true
     const call = myPeer.call(userId, stream)
     const video = document.createElement('video')
 
-    /*video.addEventListener("click", () => {
-
-
-      document.getElementById("large_video").style.display = "block";
-      
-      var cln = myVideo.cloneNode(true);
-
-      cln.style.width = "auto";
-      cln.style.height = "100vh";
-      cln.style.marginLeft = "auto";
-      cln.style.marginRight = "auto";
-
-
-
-      cln.muted = true
-
-      cln.srcObject = stream
-      cln.play();
-      document.getElementById("large_video").appendChild(cln);
-
-    }
-    )*/
-
     video.setAttribute("id", userId)
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream, NAME)

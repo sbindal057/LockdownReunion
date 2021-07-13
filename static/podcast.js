@@ -64,6 +64,78 @@ if (sessionStorage.getItem('Podcast') == 'create') {
     socket.emit('join-room', ROOM_ID, id)
   })
 
+  //mic camer share and all
+const mic = document.getElementById('mute')
+const endCall = document.getElementById('EndCall')
+const camera = document.getElementById('video')
+
+
+camera.onclick = function () {
+
+  const camera_svg = document.getElementById("cam")
+  const t = myVideo.srcObject.getTracks()[1]
+  t.enabled = !t.enabled
+  if (camera_svg.style.backgroundColor == 'crimson') {
+    camera_svg.style.backgroundColor = '#1b1a1a'
+
+
+  }
+  else {
+    camera_svg.style.backgroundColor = 'crimson'
+  }
+
+}
+mic.onclick = function () {
+  
+  const mic_svg = document.getElementById("Layer_1")
+  const t = myVideo.srcObject.getTracks()[0]
+  t.enabled = !t.enabled
+  if (mic_svg.style.backgroundColor == 'crimson') {
+    mic_svg.style.backgroundColor = '#1B1A1A'
+
+
+  }
+  else {
+    mic_svg.style.backgroundColor = 'crimson'
+  }
+
+}
+
+endCall.onclick = function () {
+  for (let conns in myPeer.connections) {
+    myPeer.connections[conns].forEach((conn, index, array) => {
+      
+      conn.peerConnection.close();
+
+      
+      if (conn.close)
+        conn.close();
+    });
+    socket.emit('disconnect');
+  }
+  myVideo.pause();
+  myVideo.src = "";
+  localStream.getTracks()[0].stop();
+  localStream.getTracks()[1].stop();
+  window.location.href = `/profile`
+}
+
+
+const openmodal = document.getElementById("show_room")
+const closemodal = document.getElementById("close_room")
+const room_id = document.getElementById("room_id")
+openmodal.onclick = () => {
+  room_id.style.display = "flex";
+
+}
+
+closemodal.onclick = () => {
+  room_id.style.display = "none";
+
+}
+
+
+
   
 }
 //for viewers
@@ -410,77 +482,6 @@ function CopyToClipboard() {
   document.execCommand("copy");
   document.body.removeChild(elem);
 }
-
-//mic camer share and all
-const mic = document.getElementById('mute')
-  const endCall = document.getElementById('EndCall')
-  const camera = document.getElementById('video')
-
-
-  camera.onclick = function () {
- 
-    const camera_svg = document.getElementById("cam")
-    const t = myVideo.srcObject.getTracks()[1]
-    t.enabled = !t.enabled
-    if (camera_svg.style.backgroundColor == 'crimson') {
-      camera_svg.style.backgroundColor = '#1b1a1a'
-
-
-    }
-    else {
-      camera_svg.style.backgroundColor = 'crimson'
-    }
-
-  }
-  mic.onclick = function () {
-    
-    const mic_svg = document.getElementById("Layer_1")
-    const t = myVideo.srcObject.getTracks()[0]
-    t.enabled = !t.enabled
-    if (mic_svg.style.backgroundColor == 'crimson') {
-      mic_svg.style.backgroundColor = '#1B1A1A'
-
-
-    }
-    else {
-      mic_svg.style.backgroundColor = 'crimson'
-    }
-
-  }
-
-  endCall.onclick = function () {
-    for (let conns in myPeer.connections) {
-      myPeer.connections[conns].forEach((conn, index, array) => {
-        
-        conn.peerConnection.close();
-
-        
-        if (conn.close)
-          conn.close();
-      });
-      socket.emit('disconnect');
-    }
-    myVideo.pause();
-    myVideo.src = "";
-    localStream.getTracks()[0].stop();
-    localStream.getTracks()[1].stop();
-    window.location.href = `/profile`
-  }
-
-
-  const openmodal = document.getElementById("show_room")
-  const closemodal = document.getElementById("close_room")
-  const room_id = document.getElementById("room_id")
-  openmodal.onclick = () => {
-    room_id.style.display = "flex";
-
-  }
-
-  closemodal.onclick = () => {
-    room_id.style.display = "none";
-
-  }
-
 
 
 
